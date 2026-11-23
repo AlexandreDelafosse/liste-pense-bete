@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Courses</title>
+
+  <!-- Appli installable -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#e2412b">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Courses">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>De quoi avez-vous besoin&nbsp;?</h1>
+      <form id="f" autocomplete="off">
+        <input id="q" type="text" placeholder="Lait, pain, lessive…" aria-label="Article à ajouter" enterkeyhint="done">
+        <button id="add" type="submit">Ajouter</button>
+        <ul id="sug" role="listbox"></ul>
+      </form>
+      <p class="count" id="count"></p>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div id="board"></div>
+      <section class="recent" id="recentBox">
+        <h2>Déjà achetés récemment</h2>
+        <p>Touchez un article pour le remettre sur la liste.</p>
+        <div class="chips" id="recent"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" role="status"><span id="tmsg"></span><button id="undo" type="button">Annuler</button></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
