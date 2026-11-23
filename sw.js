@@ -1,6 +1,6 @@
 // Garde une copie de l'appli dans le téléphone pour qu'elle s'ouvre sans réseau.
 // Quand vous modifiez un fichier, changez le numéro de version ci-dessous.
-const CACHE = 'courses-v1';
+const CACHE = 'courses-v2.1';
 const FILES = ['./', 'index.html', 'style.css', 'app.js', 'manifest.json', 'icon-180.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {

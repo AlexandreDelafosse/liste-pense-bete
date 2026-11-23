@@ -20,7 +20,12 @@
 <body>
   <header>
     <div class="wrap">
-      <h1>De quoi avez-vous besoin&nbsp;?</h1>
+      <div class="top">
+        <h1>De quoi avez-vous besoin&nbsp;?</h1>
+        <button id="gear" class="gear" type="button" aria-label="Réglages">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        </button>
+      </div>
       <form id="f" autocomplete="off">
         <input id="q" type="text" placeholder="Lait, pain, lessive…" aria-label="Article à ajouter" enterkeyhint="done">
         <button id="add" type="submit">Ajouter</button>
@@ -32,7 +37,15 @@
 
   <main>
     <div class="wrap">
+      <section class="due" id="dueBox">
+        <h2>Il vous faut peut-être</h2>
+        <p>D’après le rythme auquel vous rachetez ces articles.</p>
+        <div class="chips" id="due"></div>
+      </section>
+
       <div id="board"></div>
+      <p class="hint" id="hint">Astuce : appuyez longuement sur une tuile pour ajouter une précision ou changer son rayon.</p>
+
       <section class="recent" id="recentBox">
         <h2>Déjà achetés récemment</h2>
         <p>Touchez un article pour le remettre sur la liste.</p>
@@ -40,6 +53,38 @@
       </section>
     </div>
   </main>
+
+  <!-- Fenêtres du bas -->
+  <div class="sheet-bg" id="sheetBg"></div>
+
+  <div class="sheet" id="edit" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <h2 id="editTitle">Modifier l’article</h2>
+    <label class="field">Nom<input id="eName" type="text"></label>
+    <label class="field">Précision<input id="eNote" type="text" placeholder="x2, la marque bleue, pour le gâteau…"></label>
+    <p class="lbl">Rayon</p>
+    <div class="chips" id="eAisles"></div>
+    <div class="row">
+      <button id="eDel" class="ghost" type="button">Retirer de la liste</button>
+      <button id="eSave" class="primary" type="button">Enregistrer</button>
+    </div>
+  </div>
+
+  <div class="sheet" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <h2 id="setTitle">Réglages</h2>
+    <h3>Ordre des rayons</h3>
+    <p class="sub">Rangez-les dans l’ordre où vous les traversez au magasin.</p>
+    <ol id="order"></ol>
+    <h3>Sauvegarde</h3>
+    <p class="sub">Enregistrez votre liste et votre historique dans un fichier, par exemple avant de changer de téléphone.</p>
+    <div class="row">
+      <button id="exp" class="ghost" type="button">Exporter</button>
+      <label class="ghost btn">Importer<input type="file" id="imp" accept=".json,application/json" hidden></label>
+    </div>
+    <p class="sub" id="impMsg"></p>
+    <h3>Nouveautés</h3>
+    <div id="version"></div>
+    <div class="row"><button id="sClose" class="primary" type="button">Fermer</button></div>
+  </div>
 
   <div id="toast" role="status"><span id="tmsg"></span><button id="undo" type="button">Annuler</button></div>
 
