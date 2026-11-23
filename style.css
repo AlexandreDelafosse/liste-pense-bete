@@ -101,8 +101,8 @@ main { padding: 24px max(5vw, 16px) calc(env(safe-area-inset-bottom) + 40px); }
 #version ul { margin: 0 0 10px; padding-left: 20px; color: var(--mute); font-size: 15px; }
 
 /* Message "Annuler" */
-#toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 20px); transform: translate(-50%, 160%); background: #1d1714; color: #fff; border-radius: 14px; padding: 12px 14px 12px 18px; display: flex; gap: 14px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.3); transition: transform .25s; max-width: calc(100% - 32px); z-index: 30; }
-#toast.show { transform: translate(-50%, 0); }
+#toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 20px); transform: translate(-50%, 160%); visibility: hidden; transition: transform .25s, visibility .25s; background: #1d1714; color: #fff; border-radius: 14px; padding: 12px 14px 12px 18px; display: flex; gap: 14px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.3); max-width: calc(100% - 32px); z-index: 30; }
+#toast.show { transform: translate(-50%, 0); visibility: visible; }
 #toast button { font: 700 15px Rubik, sans-serif; background: #e2412b; color: #fff; border: 0; border-radius: 10px; padding: 10px 14px; min-height: 44px; cursor: pointer; }
 
 button:focus-visible, .btn:focus-within { outline: 3px solid var(--ink); outline-offset: 2px; }
