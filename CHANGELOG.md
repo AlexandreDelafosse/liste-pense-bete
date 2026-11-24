@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 2.4 — 24/11/2026
+- Plusieurs articles d'un coup : « lait, pain et œufs » crée 3 tuiles
+- Réglage « Garder l'écran allumé » pour le magasin
+
 ## 2.3 — 24/11/2026
 - Code réorganisé en dossiers et modules (aucun changement visible)
 - Documentation du projet : README, CHANGELOG, règles de travail

@@ -2,6 +2,7 @@
 // À chaque mise à jour : ajoutez une entrée EN HAUT de la liste,
 // mettez le même numéro dans sw.js (const CACHE = 'courses-v…') et dans CHANGELOG.md.
 export const VERSIONS = [
+  { v: '2.4', date: '24/11/2026', notes: ['Plusieurs articles d’un coup : « lait, pain et œufs » crée 3 tuiles', 'Réglage « Garder l’écran allumé » pour le magasin'] },
   { v: '2.3', date: '24/11/2026', notes: ['Code réorganisé (aucun changement visible)'] },
   { v: '2.2', date: '23/11/2026', notes: ['Mises à jour reçues plus vite', 'Correction : le message « Annuler » ne dépasse plus en bas de l’écran'] },
   { v: '2.1', date: '23/11/2026', notes: ['Numéro de version et nouveautés dans les réglages'] },
