@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 2.5 — 24/11/2026
+- Packs : ajouter un groupe d'articles en une touche (Petit-déj, Placard, Maison…)
+- Création, modification et suppression des packs dans les réglages
+
 ## 2.4 — 24/11/2026
 - Plusieurs articles d'un coup : « lait, pain et œufs » crée 3 tuiles
 - Réglage « Garder l'écran allumé » pour le magasin
