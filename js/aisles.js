@@ -21,11 +21,14 @@ export const aisle = k => AISLES.find(a => a.k === k) || AISLES[AISLES.length - 
 export function guessAisle(name, custom = {}) {
   const k = norm(name);
   if (custom[k]) return custom[k];
-  const words = k.split(/[\s'-]+/);
-  for (const a of AISLES) {
-    for (const w of a.w.split(' ')) {
-      const ww = norm(w);
-      if (ww && words.some(x => x === ww || x === ww + 's' || x === ww + 'x')) return a.k;
+  const words = k.split(/[\s'’-]+/);
+  // Le premier mot reconnu décide : « jus d'orange » → Boissons, pas Fruits
+  for (const x of words) {
+    for (const a of AISLES) {
+      for (const w of a.w.split(' ')) {
+        const ww = norm(w);
+        if (ww && (x === ww || x === ww + 's' || x === ww + 'x')) return a.k;
+      }
     }
   }
   return 'au';
