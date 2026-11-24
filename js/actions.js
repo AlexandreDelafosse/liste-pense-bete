@@ -41,16 +41,21 @@ export const splitItems = text => text.split(/\s*(?:[,;\n]|\s+et\s+)\s*/i).map(s
 // Ajoute un ou plusieurs articles tapés d'un coup
 export function addMany(text) {
   const parts = splitItems(text);
-  if (parts.length <= 1) { addItem(text); return; }
+  if (parts.length <= 1) addItem(text);
+  else addList(parts);
+}
+
+// Ajoute une liste d'articles et affiche un résumé (label : nom du pack, facultatif)
+export function addList(names, label = '') {
   let added = 0, dup = 0;
-  for (const p of parts) {
+  for (const p of names) {
     const r = pushItem(p);
     if (r === 'added') added++;
     if (r === 'dup') dup++;
   }
   save();
   const msg = added ? `${added} article${added > 1 ? 's' : ''} ajouté${added > 1 ? 's' : ''}` : 'Rien de nouveau à ajouter';
-  toast(dup ? `${msg} (${dup} déjà sur la liste)` : msg);
+  toast((label ? `${label} : ` : '') + (dup ? `${msg} (${dup} déjà sur la liste)` : msg));
 }
 
 let last = null; // de quoi annuler la dernière action
