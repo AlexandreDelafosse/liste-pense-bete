@@ -1,8 +1,14 @@
 // Garde une copie de l'appli dans le téléphone pour qu'elle s'ouvre sans réseau.
 // Quand vous modifiez un fichier, changez le numéro de version ci-dessous
-// (le même que dans app.js).
+// (le même que dans js/version.js).
 const CACHE = 'courses-v2.2';
-const FILES = ['./', 'index.html', 'style.css', 'app.js', 'manifest.json', 'icon-180.png', 'icon-512.png'];
+const FILES = [
+  './', 'index.html', 'manifest.json', 'css/style.css',
+  'icons/icon-180.png', 'icons/icon-512.png',
+  'js/main.js', 'js/version.js', 'js/utils.js', 'js/aisles.js', 'js/store.js',
+  'js/actions.js', 'js/suggestions.js',
+  'js/ui/render.js', 'js/ui/toast.js', 'js/ui/sheets.js'
+];
 
 // Installation : télécharge les fichiers neufs (sans passer par le cache du navigateur)
 self.addEventListener('install', e => {

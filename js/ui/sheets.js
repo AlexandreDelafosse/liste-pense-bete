@@ -1,0 +1,111 @@
+// Fenêtres du bas : « Modifier l'article » (appui long) et « Réglages ».
+import { store, replaceAll, backupFile, readBackup } from '../store.js';
+import { updateItem, removeItem, moveAisle, save } from '../actions.js';
+import { orderedAisles } from './render.js';
+import { VERSIONS, VERSION } from '../version.js';
+import { $, esc } from '../utils.js';
+
+function openSheet(id) { $(id).classList.add('open'); $('sheetBg').classList.add('open'); }
+export function closeSheets() {
+  document.querySelectorAll('.sheet.open').forEach(s => s.classList.remove('open'));
+  $('sheetBg').classList.remove('open');
+}
+
+// ----- Modifier un article -----
+let editId = null, editAisle = null;
+
+export function openEdit(id) {
+  const it = store.state.items.find(x => x.id === id);
+  if (!it) return;
+  editId = id;
+  editAisle = it.a;
+  $('eName').value = it.n;
+  $('eNote').value = it.note || '';
+  drawAisleChoice();
+  openSheet('edit');
+}
+
+function drawAisleChoice() {
+  $('eAisles').innerHTML = orderedAisles().map(a =>
+    `<button type="button" class="chip${a.k === editAisle ? ' sel' : ''}" style="--c:${a.c}" data-ak="${a.k}" aria-pressed="${a.k === editAisle}"><i></i>${a.n}</button>`).join('');
+}
+
+// ----- Réglages -----
+export function openSettings() {
+  drawOrder();
+  $('impMsg').textContent = '';
+  openSheet('settings');
+}
+
+function drawOrder() {
+  const list = orderedAisles();
+  $('order').innerHTML = list.map((a, i) =>
+    `<li style="--c:${a.c}"><i></i><span>${a.n}</span>
+      <button type="button" data-up="${i}" aria-label="Monter ${a.n}" ${i === 0 ? 'disabled' : ''}>↑</button>
+      <button type="button" data-down="${i}" aria-label="Descendre ${a.n}" ${i === list.length - 1 ? 'disabled' : ''}>↓</button></li>`).join('');
+}
+
+function drawVersions() {
+  $('version').innerHTML = `<p class="sub">Version ${VERSION} · ${VERSIONS[0].date}</p>` +
+    VERSIONS.map((x, i) => `<details${i === 0 ? ' open' : ''}><summary>Version ${x.v} · ${x.date}</summary><ul>${x.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></details>`).join('');
+}
+
+async function exportBackup() {
+  const file = backupFile();
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Sauvegarde Courses' });
+      return;
+    }
+  } catch (e) { if (e.name === 'AbortError') return; }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(file);
+  a.download = file.name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+async function importBackup(e) {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  try {
+    const d = await readBackup(f);
+    if (!confirm('Remplacer votre liste et votre historique actuels par ceux de ce fichier ?')) return;
+    replaceAll(d);
+    save();
+    drawOrder();
+    $('impMsg').textContent = 'Sauvegarde importée.';
+  } catch (err) {
+    $('impMsg').textContent = 'Ce fichier n’est pas une sauvegarde de l’appli Courses.';
+  }
+}
+
+// ----- Branchement des boutons -----
+export function initSheets() {
+  $('sheetBg').addEventListener('click', closeSheets);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheets(); });
+
+  $('eAisles').addEventListener('click', e => {
+    const b = e.target.closest('[data-ak]');
+    if (b) { editAisle = b.dataset.ak; drawAisleChoice(); }
+  });
+  $('eSave').addEventListener('click', () => {
+    updateItem(editId, { name: $('eName').value, note: $('eNote').value, aisleKey: editAisle });
+    closeSheets();
+  });
+  $('eDel').addEventListener('click', () => { closeSheets(); removeItem(editId, false); });
+
+  $('order').addEventListener('click', e => {
+    const up = e.target.closest('[data-up]'), down = e.target.closest('[data-down]');
+    if (up) moveAisle(+up.dataset.up, -1);
+    if (down) moveAisle(+down.dataset.down, 1);
+    if (up || down) drawOrder();
+  });
+  $('gear').addEventListener('click', openSettings);
+  $('sClose').addEventListener('click', closeSheets);
+  $('exp').addEventListener('click', exportBackup);
+  $('imp').addEventListener('change', importBackup);
+
+  drawVersions();
+}
