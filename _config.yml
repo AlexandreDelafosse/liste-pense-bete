@@ -1,0 +1,6 @@
+# Réglages de GitHub Pages : ces fichiers restent dans le dépôt
+# mais ne sont pas publiés sur le site.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - CHANGELOG.md
