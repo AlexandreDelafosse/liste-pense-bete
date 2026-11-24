@@ -7,7 +7,9 @@
 // state.dismissed suggestions ignorées               { "lait": timestamp }
 // state.order     ordre des rayons                   ['fl', 'fr', …]
 // state.settings  réglages                           { keepAwake: true }
+// state.packs     packs d'articles (voir packs.js)   [{ id, n, items }]
 import { AISLES } from './aisles.js';
+import { DEFAULT_PACKS } from './default-packs.js';
 
 const KEY = 'courses-v1'; // ne pas changer : ce sont les données déjà sur le téléphone
 
@@ -24,6 +26,8 @@ export function fix(d) {
     custom: obj(d.custom),
     dismissed: obj(d.dismissed),
     settings: obj(d.settings),
+    // packs absents (anciennes données) → packs d'exemple ; liste vide = l'utilisateur les a supprimés
+    packs: Array.isArray(d.packs) ? d.packs : JSON.parse(JSON.stringify(DEFAULT_PACKS)),
     order
   };
 }

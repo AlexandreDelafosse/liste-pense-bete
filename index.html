@@ -33,6 +33,7 @@
       </form>
       <p class="count" id="count"></p>
       <p class="tip">Plusieurs articles d’un coup : séparez-les par des virgules.</p>
+      <div class="packs" id="packs" aria-label="Packs"></div>
     </div>
   </header>
 
@@ -70,11 +71,27 @@
     </div>
   </div>
 
+  <div class="sheet" id="packEdit" role="dialog" aria-modal="true" aria-labelledby="packTitle">
+    <h2 id="packTitle">Pack</h2>
+    <label class="field">Nom du pack<input id="pName" type="text" placeholder="Petit-déj, Apéro, Bébé…"></label>
+    <label class="field">Articles<textarea id="pItems" rows="4" placeholder="Lait, pain, beurre, café"></textarea></label>
+    <p class="sub">Séparez les articles par des virgules.</p>
+    <p class="err" id="pErr"></p>
+    <div class="row">
+      <button id="pDel" class="ghost" type="button">Supprimer</button>
+      <button id="pSave" class="primary" type="button">Enregistrer</button>
+    </div>
+  </div>
+
   <div class="sheet" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle">
     <h2 id="setTitle">Réglages</h2>
     <h3>Ordre des rayons</h3>
     <p class="sub">Rangez-les dans l’ordre où vous les traversez au magasin.</p>
     <ol id="order"></ol>
+    <h3>Packs</h3>
+    <p class="sub">Des groupes d’articles à ajouter en une touche.</p>
+    <ul class="packlist" id="packList"></ul>
+    <button id="packNew" class="ghost wide" type="button">+ Nouveau pack</button>
     <h3>Au magasin</h3>
     <label class="switch-row">
       <span>Garder l’écran allumé<small id="awakeNote">Tant que l’appli est ouverte, l’écran ne se met pas en veille.</small></span>

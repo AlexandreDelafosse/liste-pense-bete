@@ -4,6 +4,7 @@ import { updateItem, removeItem, moveAisle, save } from '../actions.js';
 import { orderedAisles } from './render.js';
 import { VERSIONS, VERSION } from '../version.js';
 import { wakeLockSupported, isKeepAwake, setKeepAwake } from '../wakelock.js';
+import { getPack, savePack, deletePack } from '../packs.js';
 import { $, esc } from '../utils.js';
 
 function openSheet(id) { $(id).classList.add('open'); $('sheetBg').classList.add('open'); }
@@ -34,6 +35,7 @@ function drawAisleChoice() {
 // ----- Réglages -----
 export function openSettings() {
   drawOrder();
+  drawPacks();
   $('awake').checked = isKeepAwake();
   $('impMsg').textContent = '';
   openSheet('settings');
@@ -45,6 +47,34 @@ function drawOrder() {
     `<li style="--c:${a.c}"><i></i><span>${a.n}</span>
       <button type="button" data-up="${i}" aria-label="Monter ${a.n}" ${i === 0 ? 'disabled' : ''}>↑</button>
       <button type="button" data-down="${i}" aria-label="Descendre ${a.n}" ${i === list.length - 1 ? 'disabled' : ''}>↓</button></li>`).join('');
+}
+
+// ----- Packs (dans les réglages) -----
+let packId = null; // pack en cours de modification ('' = nouveau)
+
+function drawPacks() {
+  const packs = store.state.packs;
+  $('packList').innerHTML = packs.length
+    ? packs.map(p => `<li><div><b>${esc(p.n)}</b><small>${esc(p.items.join(', '))}</small></div>
+        <button type="button" data-edit-pack="${esc(p.id)}" aria-label="Modifier le pack ${esc(p.n)}">Modifier</button></li>`).join('')
+    : '<li><div><small>Aucun pack pour l’instant.</small></div></li>';
+}
+
+function openPack(id) {
+  const p = id ? getPack(id) : null;
+  packId = p ? p.id : '';
+  $('packTitle').textContent = p ? 'Modifier le pack' : 'Nouveau pack';
+  $('pName').value = p ? p.n : '';
+  $('pItems').value = p ? p.items.join(', ') : '';
+  $('pErr').textContent = '';
+  $('pDel').style.display = p ? '' : 'none';
+  closeSheets();
+  openSheet('packEdit');
+}
+
+function backToSettings() {
+  closeSheets();
+  openSettings();
 }
 
 function drawVersions() {
@@ -108,6 +138,20 @@ export function initSheets() {
   $('sClose').addEventListener('click', closeSheets);
   $('exp').addEventListener('click', exportBackup);
   $('imp').addEventListener('change', importBackup);
+
+  $('packList').addEventListener('click', e => {
+    const b = e.target.closest('[data-edit-pack]');
+    if (b) openPack(b.dataset.editPack);
+  });
+  $('packNew').addEventListener('click', () => openPack(''));
+  $('pSave').addEventListener('click', () => {
+    if (savePack(packId, $('pName').value, $('pItems').value)) backToSettings();
+    else $('pErr').textContent = 'Indiquez un nom et au moins un article.';
+  });
+  $('pDel').addEventListener('click', () => {
+    const p = getPack(packId);
+    if (p && confirm(`Supprimer le pack « ${p.n} » ?`)) { deletePack(packId); backToSettings(); }
+  });
 
   if (wakeLockSupported) {
     $('awake').addEventListener('change', e => setKeepAwake(e.target.checked));

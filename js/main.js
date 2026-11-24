@@ -6,6 +6,7 @@ import { toast } from './ui/toast.js';
 import { initSheets, openEdit } from './ui/sheets.js';
 import { VERSION } from './version.js';
 import { initWakeLock } from './wakelock.js';
+import { usePack } from './packs.js';
 import { $, esc } from './utils.js';
 
 // ===== Champ « De quoi avez-vous besoin ? » + suggestions =====
@@ -97,6 +98,10 @@ $('due').addEventListener('click', e => {
   if (no) dismiss(no.dataset.dis);
 });
 $('undo').addEventListener('click', undo);
+$('packs').addEventListener('click', e => {
+  const b = e.target.closest('[data-pack]');
+  if (b) usePack(b.dataset.pack);
+});
 
 // ===== Lancement =====
 initSheets();

@@ -29,6 +29,10 @@ export function render() {
   $('recent').innerHTML = rec.map(h =>
     `<button class="chip" style="--c:${aisle(h.a).c}" data-re="${esc(h.n)}"><i></i>${esc(h.n)}</button>`).join('');
 
+  // Packs sous le champ de saisie
+  $('packs').innerHTML = S.packs.map(p =>
+    `<button class="pack" type="button" data-pack="${esc(p.id)}" aria-label="Ajouter le pack ${esc(p.n)} : ${esc(p.items.join(', '))}">${esc(p.n)}</button>`).join('');
+
   // Compteur
   const n = S.items.length;
   $('count').textContent = n ? `${n} article${n > 1 ? 's' : ''} sur la liste` : 'Votre liste est vide';
