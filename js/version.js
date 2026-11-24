@@ -2,6 +2,7 @@
 // À chaque mise à jour : ajoutez une entrée EN HAUT de la liste,
 // mettez le même numéro dans sw.js (const CACHE = 'courses-v…') et dans CHANGELOG.md.
 export const VERSIONS = [
+  { v: '2.6', date: '24/11/2026', notes: ['Illustrations sur les tuiles pour une quarantaine d’articles courants', 'Correction : « Jus d’orange » est rangé dans Boissons'] },
   { v: '2.5', date: '24/11/2026', notes: ['Packs : ajoutez un groupe d’articles en une touche (Petit-déj, Placard, Maison…)', 'Créez, modifiez ou supprimez vos packs dans les réglages'] },
   { v: '2.4', date: '24/11/2026', notes: ['Plusieurs articles d’un coup : « lait, pain et œufs » crée 3 tuiles', 'Réglage « Garder l’écran allumé » pour le magasin'] },
   { v: '2.3', date: '24/11/2026', notes: ['Code réorganisé (aucun changement visible)'] },

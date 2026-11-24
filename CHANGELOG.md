@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 2.6 — 24/11/2026
+- Illustrations sur les tuiles pour une quarantaine d'articles courants
+- Correction : le premier mot reconnu décide du rayon (« Jus d'orange » → Boissons)
+
 ## 2.5 — 24/11/2026
 - Packs : ajouter un groupe d'articles en une touche (Petit-déj, Placard, Maison…)
 - Création, modification et suppression des packs dans les réglages
