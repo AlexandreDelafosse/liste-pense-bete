@@ -31,6 +31,7 @@ form { display: flex; gap: 10px; position: relative; }
 #sug li { padding: 11px 12px; border-radius: 10px; cursor: pointer; }
 #sug li.on, #sug li:hover { background: #fbe9e5; }
 .count { margin: 14px 0 0; font-size: 15px; opacity: .9; }
+.tip { margin: 2px 0 0; font-size: 13px; opacity: .75; }
 
 main { padding: 24px max(5vw, 16px) calc(env(safe-area-inset-bottom) + 40px); }
 

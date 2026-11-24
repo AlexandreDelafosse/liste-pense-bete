@@ -11,19 +11,46 @@ export function save() {
   render();
 }
 
-export function addItem(raw) {
+// Ajoute un article aux données, sans enregistrer.
+// Renvoie 'added', 'dup' (déjà sur la liste) ou null (texte vide).
+function pushItem(raw) {
   const S = store.state;
   const n = cap(raw.trim().replace(/\s+/g, ' '));
-  if (!n) return;
-  if (S.items.some(i => norm(i.n) === norm(n))) { toast(`« ${n} » est déjà sur la liste`); return; }
+  if (!n) return null;
+  if (S.items.some(i => norm(i.n) === norm(n))) return 'dup';
   const prev = S.history.find(h => norm(h.n) === norm(n));
   S.items.push({
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
     n,
     a: S.custom[norm(n)] || (prev ? prev.a : guessAisle(n, S.custom)),
     note: ''
   });
+  return 'added';
+}
+
+export function addItem(raw) {
+  const r = pushItem(raw);
+  if (r === 'dup') toast(`« ${cap(raw.trim())} » est déjà sur la liste`);
+  if (r === 'added') save();
+}
+
+// Découpe "lait, pain et œufs" en plusieurs articles
+// (séparateurs : virgule, point-virgule, retour à la ligne, « et »)
+export const splitItems = text => text.split(/\s*(?:[,;\n]|\s+et\s+)\s*/i).map(s => s.trim()).filter(Boolean);
+
+// Ajoute un ou plusieurs articles tapés d'un coup
+export function addMany(text) {
+  const parts = splitItems(text);
+  if (parts.length <= 1) { addItem(text); return; }
+  let added = 0, dup = 0;
+  for (const p of parts) {
+    const r = pushItem(p);
+    if (r === 'added') added++;
+    if (r === 'dup') dup++;
+  }
   save();
+  const msg = added ? `${added} article${added > 1 ? 's' : ''} ajouté${added > 1 ? 's' : ''}` : 'Rien de nouveau à ajouter';
+  toast(dup ? `${msg} (${dup} déjà sur la liste)` : msg);
 }
 
 let last = null; // de quoi annuler la dernière action

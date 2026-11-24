@@ -1,5 +1,5 @@
 // Démarrage de l'appli : branche les boutons et affiche la liste.
-import { addItem, removeItem, undo, dismiss } from './actions.js';
+import { addItem, addMany, removeItem, undo, dismiss } from './actions.js';
 import { typeahead } from './suggestions.js';
 import { render } from './ui/render.js';
 import { toast } from './ui/toast.js';
@@ -18,7 +18,7 @@ function showSuggestions() {
   sug.style.display = out.length ? 'block' : 'none';
 }
 function submitText(text) {
-  addItem(text);
+  addMany(text); // "lait, pain et œufs" → 3 tuiles
   q.value = '';
   sug.style.display = 'none';
 }
