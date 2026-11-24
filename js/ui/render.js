@@ -2,6 +2,7 @@
 import { store } from '../store.js';
 import { aisle } from '../aisles.js';
 import { dueList } from '../suggestions.js';
+import { iconFor } from '../icons.js';
 import { $, esc, norm } from '../utils.js';
 
 // Rayons dans l'ordre choisi dans les réglages
@@ -48,10 +49,12 @@ function tilesOf(a) {
   </section>`;
 }
 
+// Une tuile : le dessin de l'article s'il existe, sinon sa première lettre
 function tile(i) {
+  const icon = iconFor(i.n);
   return `<div class="cell">
     <button class="tile" data-id="${i.id}" aria-label="${esc(i.n)} : marquer comme acheté">
-      <b>${esc(i.n.charAt(0).toUpperCase())}</b>
+      ${icon ? `<i class="ill">${icon}</i>` : `<b>${esc(i.n.charAt(0).toUpperCase())}</b>`}
       <span>${esc(i.n)}${i.note ? `<small>${esc(i.note)}</small>` : ''}</span>
     </button>
     <button class="x" data-del="${i.id}" aria-label="Retirer ${esc(i.n)}">×</button>

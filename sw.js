@@ -7,7 +7,7 @@ const FILES = [
   'icons/icon-180.png', 'icons/icon-512.png',
   'js/main.js', 'js/version.js', 'js/utils.js', 'js/aisles.js', 'js/store.js',
   'js/actions.js', 'js/suggestions.js', 'js/wakelock.js',
-  'js/packs.js', 'js/default-packs.js',
+  'js/packs.js', 'js/default-packs.js', 'js/icons.js',
   'js/ui/render.js', 'js/ui/toast.js', 'js/ui/sheets.js'
 ];
 
