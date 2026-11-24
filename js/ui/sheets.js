@@ -3,6 +3,7 @@ import { store, replaceAll, backupFile, readBackup } from '../store.js';
 import { updateItem, removeItem, moveAisle, save } from '../actions.js';
 import { orderedAisles } from './render.js';
 import { VERSIONS, VERSION } from '../version.js';
+import { wakeLockSupported, isKeepAwake, setKeepAwake } from '../wakelock.js';
 import { $, esc } from '../utils.js';
 
 function openSheet(id) { $(id).classList.add('open'); $('sheetBg').classList.add('open'); }
@@ -33,6 +34,7 @@ function drawAisleChoice() {
 // ----- Réglages -----
 export function openSettings() {
   drawOrder();
+  $('awake').checked = isKeepAwake();
   $('impMsg').textContent = '';
   openSheet('settings');
 }
@@ -106,6 +108,13 @@ export function initSheets() {
   $('sClose').addEventListener('click', closeSheets);
   $('exp').addEventListener('click', exportBackup);
   $('imp').addEventListener('change', importBackup);
+
+  if (wakeLockSupported) {
+    $('awake').addEventListener('change', e => setKeepAwake(e.target.checked));
+  } else {
+    $('awake').disabled = true;
+    $('awakeNote').textContent = 'Non disponible sur cet appareil (iPhone : iOS 16.4 ou plus récent).';
+  }
 
   drawVersions();
 }

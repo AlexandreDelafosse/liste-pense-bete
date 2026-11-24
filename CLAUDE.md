@@ -53,6 +53,7 @@ js/aisles.js          rayons, couleurs, mots-clés, devinette du rayon
 js/store.js           données : chargement, enregistrement, export/import
 js/actions.js         ajouter, acheter, retirer, annuler
 js/suggestions.js     « Il vous faut peut-être » et autocomplétion
+js/wakelock.js        garder l'écran allumé (réglage « Au magasin »)
 js/ui/render.js       affichage de la liste
 js/ui/toast.js        message du bas (« Annuler »)
 js/ui/sheets.js       fenêtres du bas : modifier un article, réglages

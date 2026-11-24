@@ -6,6 +6,7 @@
 // state.custom    rayons corrigés à la main          { "truc": "ma" }
 // state.dismissed suggestions ignorées               { "lait": timestamp }
 // state.order     ordre des rayons                   ['fl', 'fr', …]
+// state.settings  réglages                           { keepAwake: true }
 import { AISLES } from './aisles.js';
 
 const KEY = 'courses-v1'; // ne pas changer : ce sont les données déjà sur le téléphone
@@ -22,6 +23,7 @@ export function fix(d) {
     log: obj(d.log),
     custom: obj(d.custom),
     dismissed: obj(d.dismissed),
+    settings: obj(d.settings),
     order
   };
 }

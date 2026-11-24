@@ -5,6 +5,7 @@ import { render } from './ui/render.js';
 import { toast } from './ui/toast.js';
 import { initSheets, openEdit } from './ui/sheets.js';
 import { VERSION } from './version.js';
+import { initWakeLock } from './wakelock.js';
 import { $, esc } from './utils.js';
 
 // ===== Champ « De quoi avez-vous besoin ? » + suggestions =====
@@ -99,6 +100,7 @@ $('undo').addEventListener('click', undo);
 
 // ===== Lancement =====
 initSheets();
+initWakeLock();
 render();
 
 // Message après une mise à jour
