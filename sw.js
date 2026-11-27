@@ -1,7 +1,7 @@
 // Garde une copie de l'appli dans le téléphone pour qu'elle s'ouvre sans réseau.
 // Quand vous modifiez un fichier, changez le numéro de version ci-dessous
 // (le même que dans js/version.js).
-const CACHE = 'courses-v2.6';
+const CACHE = 'courses-v2.7';
 const FILES = [
   './', 'index.html', 'manifest.json', 'css/style.css',
   'icons/icon-180.png', 'icons/icon-512.png',
