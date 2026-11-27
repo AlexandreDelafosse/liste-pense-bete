@@ -57,7 +57,22 @@ js/wakelock.js        garder l'écran allumé (réglage « Au magasin »)
 js/packs.js           packs : ajouter un groupe d'articles en une touche
 js/default-packs.js   packs d'exemple du premier lancement
 js/icons.js           illustrations des tuiles (SVG) et mots qui y mènent
+js/config.js          adresse et clé publique Supabase (jamais la clé secrète)
+js/cloud/client.js    client Supabase chargé à la demande
+js/cloud/sync.js      synchro : file d'attente hors ligne, temps réel, foyer
+js/cloud/account.js   compte : inscription, connexion, mot de passe
 js/ui/render.js       affichage de la liste
 js/ui/toast.js        message du bas (« Annuler »)
 js/ui/sheets.js       fenêtres du bas : modifier un article, réglages
+js/ui/share.js        fenêtre « Liste partagée »
+supabase/schema.sql   tables et règles de sécurité de la base (à lancer dans Supabase)
 ```
+
+## Liste partagée (Supabase)
+
+- Projet Supabase dédié (séparé de la bibliothèque). Comptes e-mail + mot de passe,
+  confirmation de l'e-mail obligatoire, un foyer partagé avec un code à 6 caractères.
+- Sécurité : règles RLS dans `supabase/schema.sql` (chacun ne voit que son foyer).
+  Toute modification de la base passe par ce fichier, testé avant d'être lancé.
+- Sans compte, l'appli fonctionne comme avant (données sur le téléphone uniquement).
+- Le service worker ne met jamais en cache les réponses de Supabase.
