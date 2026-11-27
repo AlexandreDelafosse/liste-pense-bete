@@ -2,6 +2,7 @@
 // À chaque mise à jour : ajoutez une entrée EN HAUT de la liste,
 // mettez le même numéro dans sw.js (const CACHE = 'courses-v…') et dans CHANGELOG.md.
 export const VERSIONS = [
+  { v: '2.7.1', date: '27/11/2026', notes: ['Correction : écrans de connexion et de création de compte lisibles', 'Message du bas plus lisible en mode sombre'] },
   { v: '2.7', date: '27/11/2026', notes: ['Liste partagée : comptes, foyer et code d’invitation (Réglages → Liste partagée)', 'Synchro en temps réel entre les téléphones, même hors ligne'] },
   { v: '2.6', date: '24/11/2026', notes: ['Illustrations sur les tuiles pour une quarantaine d’articles courants', 'Correction : « Jus d’orange » est rangé dans Boissons'] },
   { v: '2.5', date: '24/11/2026', notes: ['Packs : ajoutez un groupe d’articles en une touche (Petit-déj, Placard, Maison…)', 'Créez, modifiez ou supprimez vos packs dans les réglages'] },
