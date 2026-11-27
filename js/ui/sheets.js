@@ -5,9 +5,10 @@ import { orderedAisles } from './render.js';
 import { VERSIONS, VERSION } from '../version.js';
 import { wakeLockSupported, isKeepAwake, setKeepAwake } from '../wakelock.js';
 import { getPack, savePack, deletePack } from '../packs.js';
+import { initShare, openShare, shareSummary } from './share.js';
 import { $, esc } from '../utils.js';
 
-function openSheet(id) { $(id).classList.add('open'); $('sheetBg').classList.add('open'); }
+export function openSheet(id) { $(id).classList.add('open'); $('sheetBg').classList.add('open'); }
 export function closeSheets() {
   document.querySelectorAll('.sheet.open').forEach(s => s.classList.remove('open'));
   $('sheetBg').classList.remove('open');
@@ -37,6 +38,7 @@ export function openSettings() {
   drawOrder();
   drawPacks();
   $('awake').checked = isKeepAwake();
+  $('shareState').textContent = shareSummary();
   $('impMsg').textContent = '';
   openSheet('settings');
 }
@@ -159,6 +161,9 @@ export function initSheets() {
     $('awake').disabled = true;
     $('awakeNote').textContent = 'Non disponible sur cet appareil (iPhone : iOS 16.4 ou plus récent).';
   }
+
+  $('shareOpen').addEventListener('click', openShare);
+  initShare({ openSheet, closeSheets });
 
   drawVersions();
 }

@@ -32,6 +32,7 @@
         <ul id="sug" role="listbox"></ul>
       </form>
       <p class="count" id="count"></p>
+      <p class="sync" id="sync" hidden></p>
       <p class="tip">Plusieurs articles d’un coup : séparez-les par des virgules.</p>
       <div class="packs" id="packs" aria-label="Packs"></div>
     </div>
@@ -83,6 +84,10 @@
     </div>
   </div>
 
+  <div class="sheet" id="share" role="dialog" aria-modal="true" aria-label="Liste partagée">
+    <div id="shareBody"></div>
+  </div>
+
   <div class="sheet" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle">
     <h2 id="setTitle">Réglages</h2>
     <h3>Ordre des rayons</h3>
@@ -92,6 +97,9 @@
     <p class="sub">Des groupes d’articles à ajouter en une touche.</p>
     <ul class="packlist" id="packList"></ul>
     <button id="packNew" class="ghost wide" type="button">+ Nouveau pack</button>
+    <h3>Liste partagée</h3>
+    <p class="sub" id="shareState"></p>
+    <button id="shareOpen" class="ghost wide" type="button">Gérer le partage</button>
     <h3>Au magasin</h3>
     <label class="switch-row">
       <span>Garder l’écran allumé<small id="awakeNote">Tant que l’appli est ouverte, l’écran ne se met pas en veille.</small></span>

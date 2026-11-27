@@ -119,6 +119,16 @@ main { padding: 24px max(5vw, 16px) calc(env(safe-area-inset-bottom) + 40px); }
 .field textarea:focus { outline: 2px solid var(--red); outline-offset: 1px; }
 .err { color: var(--red); font-weight: 500; font-size: 14px; margin: 0; min-height: 1em; }
 
+/* Liste partagée */
+.sync { margin: 2px 0 0; font-size: 13px; font-weight: 500; opacity: .9; }
+.sync::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #9fd68b; margin-right: 6px; vertical-align: 1px; }
+.code { font: 800 34px/1 Rubik, sans-serif; letter-spacing: .18em; margin: 4px 0 10px; color: var(--red); }
+.code-input { text-transform: uppercase; letter-spacing: .2em; font-weight: 700 !important; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 10px; }
+.link { background: none; border: 0; padding: 10px 0; min-height: 44px; color: var(--red); font: 500 15px Rubik, sans-serif; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+#shareBody form { margin: 0; }
+button:disabled { opacity: .5; cursor: default; }
+
 /* Interrupteur (réglages) */
 .switch-row { display: flex; align-items: center; gap: 14px; padding: 8px 0; cursor: pointer; }
 .switch-row span { flex: 1; font-weight: 500; }
