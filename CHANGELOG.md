@@ -2,7 +2,7 @@
 
 ## 2.7.1 — 27/11/2026
 - Correction : écrans de connexion et de création de compte lisibles
-- Message du bas plus lisible en mode sombre
+- Messages du bas plus larges, et lisibles en mode sombre
 
 ## 2.7 — 27/11/2026
 - Liste partagée : comptes (e-mail + mot de passe), foyer et code d'invitation
