@@ -7,7 +7,8 @@ const FILES = [
   'icons/icon-180.png', 'icons/icon-512.png',
   'js/main.js', 'js/version.js', 'js/utils.js', 'js/aisles.js', 'js/store.js',
   'js/actions.js', 'js/suggestions.js', 'js/wakelock.js',
-  'js/packs.js', 'js/default-packs.js', 'js/icons.js',
+  'js/packs.js', 'js/default-packs.js', 'js/icons.js', 'js/config.js',
+  'js/cloud/client.js', 'js/cloud/sync.js', 'js/cloud/account.js', 'js/ui/share.js',
   'js/ui/render.js', 'js/ui/toast.js', 'js/ui/sheets.js'
 ];
 
@@ -25,6 +26,8 @@ self.addEventListener('activate', e => {
 // Réseau d'abord (toujours la dernière version), copie locale si pas de réseau
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // Jamais de cache pour Supabase : les données de la liste ne doivent pas rester dans le cache
+  if (/\.supabase\.(co|in)$/.test(new URL(e.request.url).hostname)) return;
   const sameSite = new URL(e.request.url).origin === location.origin;
   e.respondWith(
     fetch(sameSite ? new Request(e.request, { cache: 'no-cache' }) : e.request)

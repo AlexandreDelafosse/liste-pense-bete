@@ -4,11 +4,13 @@ import { guessAisle } from './aisles.js';
 import { render } from './ui/render.js';
 import { toast, hideToast } from './ui/toast.js';
 import { norm, cap, clone, DAY } from './utils.js';
+import { afterSave, recordPurchase, cancelPurchase } from './cloud/sync.js';
 
 // Enregistre puis réaffiche : à appeler après chaque changement
 export function save() {
   persist();
   render();
+  afterSave(); // liste partagée : envoie les changements (rien sinon)
 }
 
 // Ajoute un article aux données, sans enregistrer.
@@ -66,7 +68,7 @@ export function removeItem(id, bought) {
   const i = S.items.findIndex(x => x.id === id);
   if (i < 0) return;
   const it = S.items[i];
-  last = { it, i, hist: clone(S.history), log: clone(S.log) };
+  last = { it, i, hist: clone(S.history), log: clone(S.log), achat: null };
   S.items.splice(i, 1);
   if (bought) {
     const k = norm(it.n);
@@ -76,6 +78,7 @@ export function removeItem(id, bought) {
     if (ts.length && now - ts[ts.length - 1] < DAY / 2) ts[ts.length - 1] = now; // même journée : un seul achat
     else ts.push(now);
     S.log[k] = ts.slice(-10);
+    last.achat = recordPurchase(it); // liste partagée : garde la trace de l'achat
   }
   toast(bought ? `${it.n} : acheté` : `${it.n} retiré de la liste`, true);
   save();
@@ -87,6 +90,7 @@ export function undo() {
   S.items.splice(last.i, 0, last.it);
   S.history = last.hist;
   S.log = last.log;
+  cancelPurchase(last.achat);
   last = null;
   hideToast();
   save();

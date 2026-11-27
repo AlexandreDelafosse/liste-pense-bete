@@ -7,6 +7,7 @@ import { initSheets, openEdit } from './ui/sheets.js';
 import { VERSION } from './version.js';
 import { initWakeLock } from './wakelock.js';
 import { usePack } from './packs.js';
+import { setOnChange } from './cloud/sync.js';
 import { $, esc } from './utils.js';
 
 // ===== Champ « De quoi avez-vous besoin ? » + suggestions =====
@@ -104,6 +105,7 @@ $('packs').addEventListener('click', e => {
 });
 
 // ===== Lancement =====
+setOnChange(render); // liste partagée : réaffiche quand l'autre téléphone change quelque chose
 initSheets();
 initWakeLock();
 render();
